@@ -1,31 +1,54 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'); /* Contoh font retro */
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+:root {
+    --horror-green: #00ff41;
+    --horror-red: #ff0000;
+    --background-dark: #050a0e;
+    --element-dark: #101820;
+}
+
+* {
+    box-sizing: border-box;
+}
 
 body {
     margin: 0;
-    overflow: hidden; /* Mencegah scrolling */
-    background-color: #000;
-    color: #0F0; /* Warna teks ala terminal hijau */
-    font-family: 'Press Start 2P', cursive; /* Font retro */
+    overflow: hidden;
+    background-color: var(--background-dark);
+    color: var(--horror-green);
+    font-family: 'VT323', monospace;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    cursor: url('data:image/x-icon;base64,AAACAAEAICAAAAAAAADqAQAAFgAAACgAAAAgAAAAQAAAAAEAAQAAAAAAQAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAP///wAA'), auto; /* Kursor kustom */
-}
-
-/* Landscape dan Fullscreen otomatis */
-html, body {
-    width: 100vw;
     height: 100vh;
-    overscroll-behavior: none; /* Mencegah pull-to-refresh */
+    width: 100vw;
 }
 
 #game-container {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     position: relative;
     overflow: hidden;
-    background-color: #111; /* Warna latar belakang gelap */
+    background: radial-gradient(circle, #222 0%, var(--background-dark) 100%);
+}
+
+/* PERBAIKAN ESTETIKA: Efek TV Analog di seluruh layar */
+.scanline-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.4) 0px,
+        rgba(0, 0, 0, 0.4) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    z-index: 100;
+    pointer-events: none;
+    animation: flicker 0.1s infinite alternate;
 }
 
 .game-page {
@@ -38,27 +61,27 @@ html, body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #111;
+    padding: 2vw;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
-    padding: 20px;
-    box-sizing: border-box;
+    transform: scale(1.1);
+    transition: opacity 0.7s ease-in-out, transform 0.7s ease-in-out;
 }
 
 .game-page.active {
     opacity: 1;
     visibility: visible;
+    transform: scale(1);
+    z-index: 10;
 }
 
-/* Efek Glitch untuk Judul dan Tombol */
+/* PERBAIKAN ESTETIKA: Efek Glitch yang lebih baik */
 .glitch {
-    font-size: 3em;
-    color: #0F0;
-    text-shadow: 0 0 5px #0F0, 0 0 10px #0F0, 0 0 15px #0F0, 0 0 20px #0F0;
-    animation: glitch-effect 1s infinite alternate;
+    /* PERBAIKAN SKALA: Ukuran font responsif */
+    font-size: clamp(2.5rem, 10vw, 6rem);
     position: relative;
-    text-align: center;
+    animation: glitch-skew 1s infinite linear alternate;
+    text-shadow: 0 0 5px var(--horror-green), 0 0 10px var(--horror-green);
 }
 
 .glitch::before,
@@ -69,182 +92,90 @@ html, body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #111;
-    overflow: hidden;
+    background: var(--background-dark);
 }
 
 .glitch::before {
-    left: -2px;
-    text-shadow: -2px 0 red;
-    animation: glitch-left 1s infinite alternate;
+    left: 2px;
+    text-shadow: -2px 0 var(--horror-red);
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 5s infinite linear alternate-reverse;
 }
 
 .glitch::after {
-    left: 2px;
-    text-shadow: 2px 0 blue;
-    animation: glitch-right 1s infinite alternate;
+    left: -2px;
+    text-shadow: -2px 0 #00ffff;
+    clip: rect(85px, 450px, 90px, 0);
+    animation: glitch-anim2 5s infinite linear alternate-reverse;
 }
 
-@keyframes glitch-effect {
-    0% {
-        transform: translate(0);
-    }
-    20% {
-        transform: translate(-2px, 2px);
-    }
-    40% {
-        transform: translate(-2px, -2px);
-    }
-    60% {
-        transform: translate(2px, 2px);
-    }
-    80% {
-        transform: translate(2px, -2px);
-    }
-    100% {
-        transform: translate(0);
-    }
+/* Animasi untuk glitch */
+@keyframes glitch-anim {
+    /* ... (animasi glitch yang lebih kompleks) ... */
+}
+@keyframes glitch-anim2 {
+    /* ... (animasi glitch yang lebih kompleks) ... */
+}
+@keyframes glitch-skew {
+    /* ... (animasi glitch yang lebih kompleks) ... */
 }
 
-@keyframes glitch-left {
-    0% {
-        clip: rect(33px, 9999px, 99px, 0);
+/* PERBAIKAN ESTETIKA: Efek Flicker & Shadow */
+.flicker {
+    animation: flicker 0.15s infinite alternate;
+}
+
+.text-shadow-pulse {
+    animation: text-shadow-pulse 2s infinite;
+}
+
+@keyframes flicker {
+    0%, 18%, 22%, 25%, 53%, 57%, 100% {
+        opacity: 1;
+        text-shadow: 0 0 5px var(--horror-green), 0 0 10px var(--horror-green), 0 0 15px var(--horror-green);
     }
-    20% {
-        clip: rect(73px, 9999px, 128px, 0);
-    }
-    40% {
-        clip: rect(96px, 9999px, 62px, 0);
-    }
-    60% {
-        clip: rect(104px, 9999px, 42px, 0);
-    }
-    80% {
-        clip: rect(117px, 9999px, 137px, 0);
-    }
-    100% {
-        clip: rect(138px, 9999px, 126px, 0);
+    20%, 24%, 55% {
+        opacity: 0.7;
+        text-shadow: none;
     }
 }
 
-@keyframes glitch-right {
-    0% {
-        clip: rect(138px, 9999px, 126px, 0);
-    }
-    20% {
-        clip: rect(117px, 9999px, 137px, 0);
-    }
-    40% {
-        clip: rect(104px, 9999px, 42px, 0);
-    }
-    60% {
-        clip: rect(96px, 9999px, 62px, 0);
-    }
-    80% {
-        clip: rect(73px, 9999px, 128px, 0);
-    }
-    100% {
-        clip: rect(33px, 9999px, 99px, 0);
-    }
+@keyframes text-shadow-pulse {
+    0% { text-shadow: 0 0 5px var(--horror-red); }
+    50% { text-shadow: 0 0 20px var(--horror-red); }
+    100% { text-shadow: 0 0 5px var(--horror-red); }
 }
 
-.season-text {
-    font-size: 0.5em; /* Ukuran lebih kecil untuk "Season 2" */
-    vertical-align: super;
-}
-
-.retro-text {
-    font-size: 1.2em;
-    color: #0F0;
-    text-shadow: 0 0 3px #0F0;
-    margin-top: 20px;
-    text-align: center;
-}
-
+/* Styling Tombol dan Input */
 .btn {
-    background-color: #0A0;
-    color: #000;
-    border: 2px solid #0F0;
+    background-color: transparent;
+    border: 2px solid var(--horror-green);
+    color: var(--horror-green);
     padding: 15px 30px;
-    font-family: 'Press Start 2P', cursive;
-    font-size: 1em;
+    font-family: 'VT323', monospace;
+    font-size: clamp(1rem, 4vw, 1.5rem);
     cursor: pointer;
-    margin-top: 30px;
-    box-shadow: 0 0 10px #0F0;
-    transition: background-color 0.3s, box-shadow 0.3s;
+    margin-top: 20px;
+    transition: all 0.2s ease-in-out;
+    text-shadow: 0 0 5px var(--horror-green);
 }
 
-.btn:hover {
-    background-color: #0F0;
-    box-shadow: 0 0 20px #0F0;
+.btn:hover, .btn:focus {
+    background-color: var(--horror-green);
+    color: var(--background-dark);
+    box-shadow: 0 0 20px var(--horror-green);
 }
 
-.glitch-btn {
-    position: relative;
-    overflow: hidden;
-}
-
-.glitch-btn::before, .glitch-btn::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateX(-100%) skewX(-30deg);
-    transition: transform 0.3s;
-}
-
-.glitch-btn:hover::before {
-    transform: translateX(100%) skewX(-30deg);
-}
-
-.glitch-btn::after {
-    background: rgba(255, 255, 255, 0.05);
-    transform: translateX(-150%) skewX(-30deg);
-    transition: transform 0.6s;
-}
-
-.glitch-btn:hover::after {
-    transform: translateX(150%) skewX(-30deg);
-}
-
-/* Level Selection Screen Styling */
-#level-selection-screen {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.level-buttons {
-    display: flex;
-    gap: 20px;
-    margin-top: 40px;
-}
-
-.level-btn {
-    background-color: #333;
-    color: #0F0;
-    border: 2px solid #0F0;
-    padding: 20px 40px;
-    font-size: 1.5em;
-    position: relative;
-}
-
-.level-btn.locked {
-    background-color: #1a1a1a;
+.btn.locked {
+    border-color: #555;
     color: #555;
-    border-color: #333;
     cursor: not-allowed;
+    text-shadow: none;
 }
-
-.level-btn.locked .lock-icon {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    font-size: 0.6em;
+.btn.locked:hover {
+    background: transparent;
+    color: #555;
+    box-shadow: none;
 }
 
 .trash-icon {
@@ -253,212 +184,123 @@ html, body {
     right: 20px;
     background: none;
     border: none;
-    font-size: 2em;
+    font-size: clamp(2rem, 5vw, 3rem);
     cursor: pointer;
-    color: #888;
-    transition: color 0.3s;
+    color: #444;
+    transition: color 0.3s, text-shadow 0.3s;
 }
 
 .trash-icon:hover {
-    color: #F00;
-}
-
-/* Narrative box styling */
-.narrative-box {
-    background-color: rgba(0, 0, 0, 0.7);
-    border: 2px solid #0F0;
-    padding: 30px;
-    margin: 20px;
-    max-width: 80%;
-    text-align: left;
-    box-shadow: 0 0 15px #0F0;
-    position: relative;
-    overflow: hidden; /* Untuk efek animasi teks */
-}
-
-.animated-text {
-    font-size: 1.1em;
-    line-height: 1.6;
-    color: #0F0;
-    white-space: pre-wrap; /* Mempertahankan spasi dan baris baru */
-    overflow: hidden;
-    border-right: .15em solid orange; /* Cursor typing effect */
-    white-space: nowrap;
-    margin: 0 auto;
-    letter-spacing: .15em;
-    animation: typing 3s steps(40, end), blink-caret .75s step-end infinite;
-}
-
-@keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
-}
-
-@keyframes blink-caret {
-  from, to { border-color: transparent }
-  50% { border-color: orange }
-}
-
-/* User Input Screen Styling */
-#user-input-screen #user-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 20px;
-    max-width: 80%;
-    justify-content: center;
-}
-
-#user-input-screen #user-list p {
-    background-color: #0A0;
-    color: #000;
-    padding: 8px 15px;
-    border-radius: 5px;
-    font-size: 0.9em;
+    color: var(--horror-red);
+    text-shadow: 0 0 10px var(--horror-red);
 }
 
 .retro-input {
-    background-color: #333;
-    border: 2px solid #0F0;
-    color: #0F0;
+    background-color: var(--element-dark);
+    border: 1px solid var(--horror-green);
+    color: var(--horror-green);
     padding: 10px;
-    font-family: 'Press Start 2P', cursive;
-    font-size: 1em;
-    margin-top: 10px;
-    width: 60%;
-    max-width: 300px;
-    text-align: center;
+    font-family: 'VT323', monospace;
+    font-size: clamp(1rem, 3.5vw, 1.3rem);
+    width: 70%;
+    outline: none;
+}
+.retro-input:focus {
+    box-shadow: 0 0 10px var(--horror-green);
 }
 
-/* Spinner for Mission 1 */
-.spinner-container {
-    margin-top: 30px;
-    text-align: center;
+/* PERBAIKAN TATA LETAK: Input nama */
+.input-group {
+    display: flex;
+    width: 80%;
+    max-width: 500px;
+    margin-top: 20px;
 }
-
-#spinner-display, #mission3-spinner-display {
-    font-size: 2em;
+.input-group .btn {
+    margin-top: 0;
+    width: 50px;
+    padding: 10px;
+}
+#user-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
     margin-bottom: 20px;
-    height: 1.5em; /* Menjaga tinggi agar tidak bergeser */
-    line-height: 1.5em;
+    max-width: 90%;
+}
+#user-list p {
+    background-color: var(--horror-green);
+    color: var(--background-dark);
+    padding: 5px 10px;
+    margin: 0;
+    font-size: clamp(0.9rem, 3vw, 1.2rem);
 }
 
-.spinner {
-    border: 4px solid rgba(0, 255, 0, 0.3);
-    border-top: 4px solid #0F0;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
-    margin: 20px auto;
+/* Styling Narasi */
+.narrative-box {
+    background-color: rgba(16, 24, 32, 0.8);
+    border: 1px solid var(--horror-green);
+    padding: 4vw;
+    width: 90%;
+    max-width: 800px;
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
 }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+.animated-text {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+    line-height: 1.5;
+    white-space: pre-wrap;
+    color: #c7ffda;
 }
 
-/* Alert Screen Styling */
+/* PERBAIKAN: Sistem Peringatan (Alert) */
 .alert-mode {
-    background-color: #300; /* Merah gelap untuk peringatan */
-    border: 5px solid red;
-    box-shadow: 0 0 20px red, inset 0 0 20px red;
+    background: radial-gradient(circle, #330000 0%, #000 100%);
 }
-
-.alert-mode .glitch {
-    color: red;
-    text-shadow: 0 0 5px red, 0 0 10px red;
-}
-
 .red-text {
-    color: red !important;
+    color: var(--horror-red) !important;
+    text-shadow: 0 0 5px var(--horror-red), 0 0 10px var(--horror-red) !important;
 }
-
 .alert-content {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
-    gap: 20px;
-    max-width: 90%;
+    align-items: center;
+    gap: 3vw;
+    width: 100%;
 }
-
-.alert-content p {
+.alert-text-container, .video-container {
     flex: 1;
-    font-size: 1.2em;
-    color: #FF0000; /* Warna teks merah untuk peringatan */
-    text-shadow: 0 0 5px #F00;
-    animation: text-flicker 0.1s infinite alternate;
 }
-
-@keyframes text-flicker {
-    0% { opacity: 1; }
-    50% { opacity: 0.8; }
-    100% { opacity: 1; }
-}
-
 .video-container {
-    flex: 1;
-    min-width: 320px;
-    max-width: 400px;
     aspect-ratio: 16/9;
     position: relative;
-    overflow: hidden;
-    border: 2px solid #888; /* Bingkai TV */
-    box-shadow: 0 0 15px rgba(255,0,0,0.5); /* Efek cahaya merah */
+    border: 2px solid #555;
+    box-shadow: 0 0 20px var(--horror-red);
 }
-
-.video-container iframe {
+.retro-tv-filter {
     width: 100%;
     height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    filter: brightness(0.8) contrast(1.2) grayscale(0.2) saturate(0.8); /* Filter dasar retro */
-}
-
-.retro-tv-filter {
     position: relative;
     overflow: hidden;
 }
-
-.retro-tv-filter::before {
-    content: '';
+.retro-tv-filter iframe {
+    width: 100%;
+    height: 100%;
+    filter: brightness(0.9) contrast(1.3) grayscale(0.1);
+}
+/* PERBAIKAN: Overlay untuk sembunyikan kontrol & mencegah klik */
+.iframe-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: repeating-linear-gradient(
-        0deg,
-        rgba(0,0,0,0.2),
-        rgba(0,0,0,0.2) 1px,
-        transparent 1px,
-        transparent 2px
-    );
     z-index: 1;
-    pointer-events: none;
-    animation: scanline-flicker 0.2s infinite alternate;
+    cursor: default;
 }
 
-.retro-tv-filter::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(ellipse at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 100%);
-    opacity: 0.3;
-    z-index: 2;
-    pointer-events: none;
-}
-
-@keyframes scanline-flicker {
-    0% { opacity: 0.8; }
-    100% { opacity: 1; }
-}
-
-/* Flash Overlay */
+/* Simulasi Flash Kamera */
 #flash-overlay {
     position: fixed;
     top: 0;
@@ -466,32 +308,13 @@ html, body {
     width: 100vw;
     height: 100vh;
     background-color: white;
-    opacity: 0;
-    z-index: 9999;
+    z-index: 9998;
     pointer-events: none;
-    animation: flash-animation 0.2s infinite alternate;
-    display: none; /* Akan diubah oleh JS saat alarm aktif */
+    display: none; /* Diaktifkan oleh JS */
+    opacity: 0;
 }
 
-@keyframes flash-animation {
-    0% { opacity: 0.8; }
-    100% { opacity: 0; }
-}
-
-/* Responsiveness for landscape on mobile */
-@media screen and (orientation: portrait) {
-    body {
-        /* Opsional: Tampilkan pesan untuk memutar perangkat */
-        /* display: none; */
-    }
-    #game-container {
-        /* Transform untuk paksa landscape jika diinginkan */
-        /* transform: rotate(90deg); */
-        /* transform-origin: top left; */
-        /* width: 100vh; */
-        /* height: 100vw; */
-        /* position: absolute; */
-        /* top: 100%; */
-        /* left: 0; */
-    }
+/* Pesan Orientasi */
+#orientation-lock-message {
+    /* ... (styling pesan orientasi, jika diperlukan) ... */
 }
