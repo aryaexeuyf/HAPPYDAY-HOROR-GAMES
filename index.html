@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>HAPPY DAY Season 2</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="theme-color" content="#000000">
+</head>
+<body>
+    <iframe src="https://www.youtube.com/embed/lVBBIkA7tMI?autoplay=1&loop=1&playlist=lVBBIkA7tMI&controls=0" frameborder="0" allow="autoplay; encrypted-media" style="display:none"></iframe>
+
+    <div id="game-container">
+        <section id="start-screen" class="game-page active">
+            <h1 class="glitch">HAPPYDAY <span class="season-text">Season 2</span></h1>
+            <p class="retro-text">Memantau Anda dari kejauhan...</p>
+            <button id="start-game-btn" class="btn glitch-btn">START GAME</button>
+            <audio id="start-sound" src="https://www.youtube.com/embed/d40PeoOXE1E?autoplay=1" preload="auto"></audio>
+            <iframe id="start-sound-iframe" src="https://www.youtube.com/embed/d40PeoOXE1E?autoplay=0&controls=0" frameborder="0" allow="autoplay" style="display:none;"></iframe>
+        </section>
+
+        <section id="level-selection-screen" class="game-page">
+            <h2 class="retro-text">Pilih Level</h2>
+            <div class="level-buttons">
+                <button id="level1-btn" class="btn level-btn">Level 1</button>
+                <button id="level2-btn" class="btn level-btn locked" disabled>Level 2 <span class="lock-icon">🔒</span></button>
+                <button id="level3-btn" class="btn level-btn locked" disabled>Level 3 <span class="lock-icon">🔒</span></button>
+            </div>
+            <p id="level-status" class="retro-text"></p>
+            <button id="delete-progress-btn" class="trash-icon">🗑️</button>
+        </section>
+
+        <section id="narrative-level1-screen" class="game-page">
+            <div class="narrative-box">
+                <p id="narrative-text" class="animated-text"></p>
+                <button id="continue-narrative-btn" class="btn continue-btn" style="display:none;">Lanjut</button>
+            </div>
+        </section>
+
+        <section id="user-input-screen" class="game-page">
+            <h2 class="retro-text">Siapa Kalian?</h2>
+            <div id="user-list">
+                <p>Reyvan</p>
+                <p>Balqis</p>
+                <p>Saka</p>
+                <p>Carol</p>
+            </div>
+            <input type="text" id="manual-name-input" placeholder="Tambahkan nama Anda (opsional)" class="retro-input">
+            <button id="add-name-btn" class="btn">Tambah Nama</button>
+            <button id="start-mission-btn" class="btn glitch-btn">Mulai Misi!</button>
+        </section>
+
+        <section id="mission1-screen" class="game-page">
+            <h2 class="retro-text">Misi 1: Pilih Ketua</h2>
+            <div class="spinner-container">
+                <p id="spinner-display" class="glitch"></p>
+                <button id="spin-btn" class="btn glitch-btn">SPIN!</button>
+            </div>
+            <p id="chosen-leader-text" class="retro-text" style="display:none;"></p>
+            <button id="continue-mission1-btn" class="btn continue-btn" style="display:none;">Lanjut</button>
+        </section>
+
+        <section id="mission2-screen" class="game-page">
+            <div class="narrative-box">
+                <p id="mission2-narrative" class="animated-text"></p>
+                <input type="text" id="clue-input" placeholder="Masukkan kata kunci di sini" class="retro-input" style="display:none;">
+                <button id="submit-clue-btn" class="btn glitch-btn" style="display:none;">Submit</button>
+                <p id="clue-feedback" class="retro-text"></p>
+                <div id="loading-spinner" class="spinner" style="display:none;"></div>
+            </div>
+            <button id="continue-mission2-btn" class="btn continue-btn" style="display:none;">Lanjut</button>
+        </section>
+
+        <section id="mission3-screen" class="game-page">
+            <div class="narrative-box">
+                <p id="mission3-narrative" class="animated-text"></p>
+                <div class="spinner-container" style="display:none;">
+                    <p id="mission3-spinner-display" class="glitch"></p>
+                    <button id="mission3-spin-btn" class="btn glitch-btn">SPIN UNTUK MEMILIH</button>
+                </div>
+                <p id="chosen-child-text" class="retro-text" style="display:none;"></p>
+            </div>
+            <button id="continue-mission3-btn" class="btn continue-btn" style="display:none;">Lanjut</button>
+        </section>
+
+        <section id="mission4-screen" class="game-page">
+            <div class="narrative-box">
+                <p id="mission4-narrative" class="animated-text"></p>
+            </div>
+            <button id="continue-mission4-btn" class="btn continue-btn">Lanjut</button>
+        </section>
+
+        <section id="mission5-screen" class="game-page">
+            <div class="narrative-box">
+                <p id="mission5-narrative" class="animated-text"></p>
+            </div>
+            <button id="mission-complete-btn" class="btn glitch-btn">MISI SELESAI</button>
+        </section>
+
+        <section id="game-over-screen" class="game-page">
+            <h2 class="glitch">MISI SELESAI!</h2>
+            <p class="retro-text">Misi yang anda kerjakan sudah selesai, pastikan jangan membuka ulang game horor ini karena kalau kalian tidak menyelesaikan misi kami akan datang dan menghantui kalian di jam 20.00 setiap hari Sabtu, Minggu, Kamis, Jumat;</p>
+        </section>
+
+        <section id="alert-screen" class="game-page alert-mode">
+            <h2 class="glitch red-text">PERINGATAN BAHAYA!</h2>
+            <div class="alert-content">
+                <p id="alert-narrative" class="animated-text"></p>
+                <div class="video-container retro-tv-filter">
+                    <iframe id="alert-video-iframe1" src="https://www.youtube.com/embed/8mcXpBb3VzU?autoplay=1&controls=0&loop=1&playlist=8mcXpBb3VzU,JTcOy3bJ4p4,Yz4Y61lZR_s" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="display:none;"></iframe>
+                    <iframe id="alert-video-iframe2" src="https://www.youtube.com/embed/JTcOy3bJ4p4?autoplay=0&controls=0&loop=1&playlist=8mcXpBb3VzU,JTcOy3bJ4p4,Yz4Y61lZR_s" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="display:none;"></iframe>
+                    <iframe id="alert-video-iframe3" src="https://www.youtube.com/embed/Yz4Y61lZR_s?autoplay=0&controls=0&loop=1&playlist=8mcXpBb3VzU,JTcOy3bJ4p4,Yz4Y61lZR_s" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="display:none;"></iframe>
+                </div>
+            </div>
+            <audio id="alert-backsound" src="https://www.youtube.com/embed/flKtFnB4OVs?autoplay=1&loop=1&playlist=flKtFnB4OVs&controls=0" preload="auto" style="display:none;"></audio>
+            <video id="camera-feed" autoplay playsinline style="display:none;"></video>
+            <div id="flash-overlay" style="display:none;"></div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Mendaftarkan Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    console.log('Service Worker terdaftar dengan scope: ', registration.scope);
+                }).catch(function(err) {
+                    console.log('Pendaftaran Service Worker gagal: ', err);
+                });
+            });
+        }
+
+        // Permintaan izin notifikasi di awal
+        if ('Notification' in window && Notification.permission !== 'granted') {
+            Notification.requestPermission().then(function (permission) {
+                if (permission === 'granted') {
+                    console.log('Izin notifikasi diberikan.');
+                } else {
+                    console.log('Izin notifikasi ditolak.');
+                }
+            });
+        }
+
+        // Permintaan izin kamera di awal (untuk flash)
+        // Perlu diingat, kontrol flash secara langsung dan otomatis di latar belakang sangat terbatas oleh browser.
+        // Ini lebih sebagai indikasi upaya izin awal.
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment', torch: true } })
+                .then(function(stream) {
+                    console.log('Izin kamera diberikan.');
+                    // Simpan stream jika diperlukan untuk flash nanti
+                    window.cameraStream = stream;
+                    stream.getTracks().forEach(track => track.stop()); // Hentikan segera setelah izin
+                })
+                .catch(function(err) {
+                    console.log('Izin kamera ditolak atau tidak didukung: ', err);
+                });
+        }
+    </script>
+</body>
+</html>
