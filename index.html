@@ -12,14 +12,16 @@
     <meta name="theme-color" content="#000000">
 </head>
 <body>
-    <audio id="main-bgsound" src="https://www.youtube.com/embed/lVBBIkA7tMI?autoplay=1&loop=1&playlist=lVBBIkA7tMI" loop></audio>
-    <audio id="start-sound" src="https://www.youtube.com/embed/d40PeoOXE1E?autoplay=1"></audio>
-    <audio id="alert-bgsound" src="https://www.youtube.com/embed/flKtFnB4OVs?autoplay=1&loop=1&playlist=flKtFnB4OVs" loop></audio>
-    
+    <div style="display:none;">
+        <iframe id="main-bgsound-iframe" src="https://www.youtube.com/embed/lVBBIkA7tMI?loop=1&playlist=lVBBIkA7tMI&controls=0"></iframe>
+        <iframe id="start-sound-iframe" src="https://www.youtube.com/embed/d40PeoOXE1E?controls=0"></iframe>
+        <iframe id="alert-bgsound-iframe" src="https://www.youtube.com/embed/flKtFnB4OVs?loop=1&playlist=flKtFnB4OVs&controls=0"></iframe>
+    </div>
+
     <div id="game-container">
         <div class="scanline-overlay"></div>
         <div id="flash-overlay"></div>
-        
+
         <section id="start-screen" class="game-page active">
             <h1 class="glitch" data-text="HAPPYDAY">HAPPYDAY</h1>
             <h2 class="season-text flicker">Season 2</h2>
@@ -30,8 +32,8 @@
             <h2 class="retro-text flicker">Pilih Level</h2>
             <div class="level-buttons">
                 <button id="level1-btn" class="btn level-btn">Level 1</button>
-                <button id="level2-btn" class="btn level-btn locked" disabled>Level 2 <span class="lock-icon">🔒</span></button>
-                <button id="level3-btn" class="btn level-btn locked" disabled>Level 3 <span class="lock-icon">🔒</span></button>
+                <button class="btn level-btn locked" disabled>Level 2 <span class="lock-icon">🔒</span></button>
+                <button class="btn level-btn locked" disabled>Level 3 <span class="lock-icon">🔒</span></button>
             </div>
             <p id="level-status" class="retro-text"></p>
             <button id="delete-progress-btn" class="trash-icon" title="Hapus Progres">🗑️</button>
@@ -55,15 +57,15 @@
         </section>
 
         <section id="mission-screen" class="game-page">
-            <div id="mission-content">
+            <div id="mission-content" class="narrative-box">
                 </div>
         </section>
-        
+
         <section id="game-over-screen" class="game-page">
             <h2 class="glitch" data-text="MISI SELESAI!">MISI SELESAI!</h2>
             <p class="retro-text">Misi yang anda kerjakan sudah selesai, pastikan jangan membuka ulang game horor ini karena kami akan datang dan menghantui kalian di jam 20.00 setiap hari Sabtu, Minggu, Kamis, Jumat.</p>
         </section>
-        
+
         <section id="alert-screen" class="game-page alert-mode">
             <div class="alert-content">
                 <div class="alert-text-container">
@@ -73,14 +75,11 @@
                 <div class="video-container">
                     <div class="retro-tv-filter">
                         <iframe id="alert-video-player" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                        <div class="iframe-overlay"></div> </div>
+                        <div class="iframe-overlay"></div>
+                    </div>
                 </div>
             </div>
         </section>
-    </div>
-    
-    <div id="orientation-lock-message" style="display:none;">
-        <h2>Harap putar perangkat Anda ke mode Lanskap.</h2>
     </div>
 
     <script src="script.js"></script>
