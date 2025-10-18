@@ -314,6 +314,19 @@ body {
     opacity: 0;
 }
 
+#alert-countdown {
+    position: fixed;
+    top: 10px;
+    right: 15px;
+    font-family: 'VT323', monospace;
+    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+    color: var(--horror-red);
+    text-shadow: 0 0 5px var(--horror-red), 0 0 10px var(--horror-red);
+    z-index: 1000;
+    opacity: 0.7;
+    animation: flicker 0.5s infinite alternate;
+}
+
 /* Pesan Orientasi */
 #orientation-lock-message {
     /* ... (styling pesan orientasi, jika diperlukan) ... */
